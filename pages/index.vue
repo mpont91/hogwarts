@@ -129,18 +129,22 @@ export default {
         {
           answer: WEREWOLF,
           house: GRYFFINDOR,
+          sound: new Audio('/gryffindor.mp3'),
         },
         {
           answer: WITTY,
           house: RAVENCLAW,
+          sound: new Audio('/ravenclaw.mp3'),
         },
         {
           answer: FRIAR,
           house: HUFFLEPUFF,
+          sound: new Audio('/hufflepuff.mp3'),
         },
         {
           answer: BARON,
           house: SLYTHERIN,
+          sound: new Audio('/slytherin.mp3'),
         },
       ],
     }
@@ -157,7 +161,7 @@ export default {
       } else {
         const ending = this.endings.filter((e) => e.answer === this.lastAnswer)
         if (ending.length === 1) {
-          this.end(ending[0].house)
+          this.end(ending[0])
         } else {
           this.setNextQuestion()
         }
@@ -177,9 +181,10 @@ export default {
       this.lastAnswer = answer
       this.flow()
     },
-    end(house) {
+    end(ending) {
       this.currentQuestion = null
-      this.house = house
+      this.house = ending.house
+      ending.sound.play()
     },
     restart() {
       this.house = null
