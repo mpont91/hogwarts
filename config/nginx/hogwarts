@@ -1,0 +1,39 @@
+server {
+      listen 80;
+      server_name hogwarts.mpont91.com;
+      return 301 https://hogwarts.mpont91.com$request_uri;
+}
+
+server {
+      listen 443 ssl;
+
+	    root /var/www/hogwarts/dist;
+    	server_name hogwarts.mpont91.com;
+    	index index.html;
+
+    	location / {
+        	try_files $uri $uri/ /index.html;
+    	}
+
+      location ~ /.well-known {
+              allow all;
+      }
+
+    	gzip on;
+    	gzip_static on;
+    	gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+    	gzip_proxied  any;
+    	gzip_vary on;
+    	gzip_comp_level 6;
+    	gzip_buffers 16 8k;
+    	gzip_http_version 1.1;
+
+    	client_max_body_size 100M;
+
+    	ssl_certificate /etc/letsencrypt/live/hogwarts.mpont91.com/fullchain.pem;
+    	ssl_certificate_key /etc/letsencrypt/live/hogwarts.mpont91.com/privkey.pem;
+      ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+      ssl_ciphers         HIGH:!aNULL:!MD5;
+    	error_log /var/log/nginx/xarxafarma-error.log;
+    	access_log /var/log/nginx/xarxafarma-access.log;
+}
