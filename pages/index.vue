@@ -32,7 +32,7 @@
           </v-toolbar>
           <template v-if="view === VIEW_SETUP">
             <v-card-title class="justify-center display-1">
-              Set up students
+              Set up teams
             </v-card-title>
             <v-card-text>
               <v-form ref="form">
@@ -105,12 +105,12 @@
               >
                 Next student
               </v-btn>
-              <v-btn v-else x-large @click="showSummary">Show results</v-btn>
+              <v-btn v-else x-large @click="showSummary">Show teams</v-btn>
             </v-card-actions>
           </template>
           <template v-if="view === VIEW_SUMMARY">
             <v-card-title class="justify-center display-1">
-              Results
+              Teams
             </v-card-title>
             <v-card-text>
               <v-simple-table>
@@ -396,11 +396,11 @@ export default {
       let found = false
       let candidate = null
       let index = 0
-      while (!found && !candidate) {
+      while (!found) {
         candidate = result.alternatives[index]
         found =
-          this.housesLimit[candidate.toLowerCase()] <
-          this.summary[candidate.toLowerCase()].length
+          this.summary[candidate.toLowerCase()].length <
+          this.housesLimit[candidate.toLowerCase()]
         index++
       }
       return this.results.filter((i) => i.house === candidate)[0]
