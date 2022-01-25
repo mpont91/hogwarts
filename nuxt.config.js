@@ -1,12 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-  ssr: false,
-
-  // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
-
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: 'Hogwarts',
@@ -17,7 +11,12 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'Harry Potter houses sort quiz game. Discover your Hogwarts house!',
+      },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }],
   },
@@ -39,10 +38,21 @@ export default {
     '@nuxtjs/stylelint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/google-analytics',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: [
+    // https://go.nuxtjs.dev/pwa
+    '@nuxtjs/pwa',
+  ],
+
+  // PWA module configuration: https://go.nuxtjs.dev/pwa
+  pwa: {
+    manifest: {
+      lang: 'en',
+    },
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -62,6 +72,10 @@ export default {
     },
   },
 
+  googleAnalytics: {
+    id: 'UA-206606764-1',
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extend(config, ctx) {
@@ -73,5 +87,8 @@ export default {
         },
       })
     },
+  },
+  server: {
+    port: 4000,
   },
 }

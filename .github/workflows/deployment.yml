@@ -1,0 +1,30 @@
+name: deployment
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@master
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval $(ssh-agent -s)
+          ssh-add ~/.ssh/id_rsa
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.HOSTNAME }} >> ~/.ssh/known_hosts
+
+      - name: Install
+        run: make install
