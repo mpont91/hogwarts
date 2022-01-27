@@ -1,10 +1,22 @@
-all:
+.PHONY: fetch
+fetch:
+	git fetch
+	git reset --hard origin/master
+
+.PHONY: build
+build:
 	npm --silent ci --no-progress
 	npm run build
 
+.PHONY: deploy
+deploy:
+	pm2 start
+
+.PHONY: production
 production:
-	git pull
-	make
+	make fetch
+	make build
+	make deploy
 
 install:
-	ssh -q root@mpont91.com 'cd /var/www/hogwarts && make production && pm2 start'
+	ssh -q root@mpont91.com 'cd /var/www/hogwarts && make production'
