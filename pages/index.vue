@@ -281,25 +281,29 @@ export default {
         {
           answer: WEREWOLF,
           house: GRYFFINDOR,
-          sound: new Audio('/gryffindor.mp3'),
+          sound:
+            typeof Audio !== 'undefined' ? new Audio('/gryffindor.mp3') : null,
           alternatives: [RAVENCLAW, HUFFLEPUFF, SLYTHERIN],
         },
         {
           answer: WITTY,
           house: RAVENCLAW,
-          sound: new Audio('/ravenclaw.mp3'),
+          sound:
+            typeof Audio !== 'undefined' ? new Audio('/ravenclaw.mp3') : null,
           alternatives: [HUFFLEPUFF, SLYTHERIN, GRYFFINDOR],
         },
         {
           answer: FRIAR,
           house: HUFFLEPUFF,
-          sound: new Audio('/hufflepuff.mp3'),
+          sound:
+            typeof Audio !== 'undefined' ? new Audio('/hufflepuff.mp3') : null,
           alternatives: [SLYTHERIN, GRYFFINDOR, HUFFLEPUFF],
         },
         {
           answer: BARON,
           house: SLYTHERIN,
-          sound: new Audio('/slytherin.mp3'),
+          sound:
+            typeof Audio !== 'undefined' ? new Audio('/slytherin.mp3') : null,
           alternatives: [HUFFLEPUFF, RAVENCLAW, GRYFFINDOR],
         },
       ],
