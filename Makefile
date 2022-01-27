@@ -18,5 +18,6 @@ production:
 	make build
 	make deploy
 
+.PHONY: install
 install:
 	ssh -q root@mpont91.com 'cd /var/www/hogwarts && make production'
